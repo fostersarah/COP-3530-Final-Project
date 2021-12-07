@@ -11,14 +11,12 @@ class Movie {
     string title;
     string description;
     vector<string> genre;
-    int ID;
-    
+
 public:
-    Movie(string& title, string& description, int ID, vector<string>& keywords);
+    Movie(string& title, string& description, vector<string>& keywords);
     string getTitle();
     string getDescription();
     vector<string> getGenre();
-    int getID();
 };
 
 
