@@ -2,8 +2,8 @@
 
 struct Edge
 {
-	string src, dest;
-	int weight;
+	string src, dest; // movie names
+	int weight; // weight between movies
 	Edge(string _src, string _dest, int _weight) 
 	{
 		src = _src;
@@ -15,8 +15,9 @@ struct Edge
 class Graph
 {
 public:
-	int numVertices;
+	int numVertices; // number of movies
 	map <string, vector<pair<string,int>>> adjList;
+	// e.g. adjList["Toy Story"] = {("Finding Nemo", 40), ("Toy Story 2", 100)}
 
 	Graph(const vector<Edge>& edges, int vertices)
 	{
