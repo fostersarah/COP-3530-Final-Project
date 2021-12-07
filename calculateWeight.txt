@@ -1,0 +1,32 @@
+
+int calculateWeight(movie1, movie2) {
+	set<string> unique;
+	vector<string> movie1Genres = movie1.getGenres();
+	vector<string> movie2Genres = movie1.getGenres();
+	
+	for (int i = 0; i < movie1Genres.size(); i++) {
+		unique.insert(movie1Genres[i]);
+	}
+
+	for (int i = 0; i < movie2Genres.size(); i++) {
+		unique.insert(movie2Genres[i]);
+	}
+
+
+	sort(movie1Genres.begin(), movie1Genres.end());
+	sort(movie2Genres.begin(), movie2Genres.end());
+
+	vector<string> v(movie1Genres.size() + movie2Genres.size());
+	vector<string>::iterator it;
+
+	it = set_intersection(movie1Genres.begin(), movie1Genres.end(), movie2Genres.begin(), movie2Genres.end(), v.begin());
+
+	v.resize(it - v.begin());
+
+	float decimal = (float)1 - ((float)v.size() / (float)unique.size());
+
+	int result = 100 * decimal;
+
+	return result;
+
+}
