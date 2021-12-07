@@ -10,14 +10,15 @@ using namespace std;
 class Movie {
     string title;
     string description;
+    vector<string> genre;
     int ID;
-    vector<string> keywords;
+    
 public:
     Movie(string& title, string& description, int ID, vector<string>& keywords);
     string getTitle();
     string getDescription();
+    vector<string> getGenre();
     int getID();
-    vector<string> getKeywords();
 };
 
 

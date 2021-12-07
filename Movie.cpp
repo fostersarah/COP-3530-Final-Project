@@ -13,13 +13,14 @@ string Movie::getTitle() {
 int Movie::getID() {
     return ID;
 }
-vector<string> Movie::getKeywords() {
-    return keywords;
+vector<string> Movie::getGenre() {
+    return genre;
 }
-Movie::Movie(string& title, string& description, int ID, vector<string>& keywords) {
+Movie::Movie(string& title, string& description, int ID, vector<string>& genre) {
     this->title = title;
     this->description = description;
     this->ID = ID;
-    this->keywords = keywords;
+    this->genre = genre;
+
 }
 
