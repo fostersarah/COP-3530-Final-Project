@@ -94,12 +94,12 @@ clean: CMakeFiles/COP_3530_Final_Project.dir/clean
 CMakeFiles/COP_3530_Final_Project.dir/all:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/COP_3530_Final_Project.dir/build.make CMakeFiles/COP_3530_Final_Project.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/COP_3530_Final_Project.dir/build.make CMakeFiles/COP_3530_Final_Project.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/Users/sarahfoster/COP-3530-Final-Project/cmake-build-debug/CMakeFiles --progress-num=1,2,3,4 "Built target COP_3530_Final_Project"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/Users/sarahfoster/COP-3530-Final-Project/cmake-build-debug/CMakeFiles --progress-num=1,2,3 "Built target COP_3530_Final_Project"
 .PHONY : CMakeFiles/COP_3530_Final_Project.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/COP_3530_Final_Project.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/sarahfoster/COP-3530-Final-Project/cmake-build-debug/CMakeFiles 4
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/sarahfoster/COP-3530-Final-Project/cmake-build-debug/CMakeFiles 3
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/COP_3530_Final_Project.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /Users/sarahfoster/COP-3530-Final-Project/cmake-build-debug/CMakeFiles 0
 .PHONY : CMakeFiles/COP_3530_Final_Project.dir/rule

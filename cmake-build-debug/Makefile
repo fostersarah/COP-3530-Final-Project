@@ -143,33 +143,6 @@ COP_3530_Final_Project/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/COP_3530_Final_Project.dir/build.make CMakeFiles/COP_3530_Final_Project.dir/build
 .PHONY : COP_3530_Final_Project/fast
 
-Graph.o: Graph.cpp.o
-
-.PHONY : Graph.o
-
-# target to build an object file
-Graph.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/COP_3530_Final_Project.dir/build.make CMakeFiles/COP_3530_Final_Project.dir/Graph.cpp.o
-.PHONY : Graph.cpp.o
-
-Graph.i: Graph.cpp.i
-
-.PHONY : Graph.i
-
-# target to preprocess a source file
-Graph.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/COP_3530_Final_Project.dir/build.make CMakeFiles/COP_3530_Final_Project.dir/Graph.cpp.i
-.PHONY : Graph.cpp.i
-
-Graph.s: Graph.cpp.s
-
-.PHONY : Graph.s
-
-# target to generate assembly for a file
-Graph.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/COP_3530_Final_Project.dir/build.make CMakeFiles/COP_3530_Final_Project.dir/Graph.cpp.s
-.PHONY : Graph.cpp.s
-
 Movie.o: Movie.cpp.o
 
 .PHONY : Movie.o
@@ -233,9 +206,6 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... COP_3530_Final_Project"
-	@echo "... Graph.o"
-	@echo "... Graph.i"
-	@echo "... Graph.s"
 	@echo "... Movie.o"
 	@echo "... Movie.i"
 	@echo "... Movie.s"

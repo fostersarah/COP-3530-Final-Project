@@ -82,9 +82,6 @@
 				</MakeCommands>
 			</Target>
 		</Build>
-		<Unit filename="/Users/sarahfoster/COP-3530-Final-Project/Graph.cpp">
-			<Option target="COP_3530_Final_Project"/>
-		</Unit>
 		<Unit filename="/Users/sarahfoster/COP-3530-Final-Project/Movie.cpp">
 			<Option target="COP_3530_Final_Project"/>
 		</Unit>
