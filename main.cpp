@@ -4,12 +4,18 @@
 #include <sstream>
 #include <vector>
 #include <unordered_set>
+#include <map>
 #include "Movie.h"
 using namespace std;
 
 int main() {
     vector<Movie> movies; //every movie in the list
     unordered_set<string> listGenres; //all possible genres
+    
+    vector<string> allGenres;
+    map<string, vector<Movie>> moviesByGenre;
+    map<string, Movie> catalogue;
+    int totalMovies;
 
     string currentLine; //file i/o
     string currentLine2;
@@ -43,6 +49,11 @@ int main() {
                 movieGenres.push_back(currentGenre); //keeps track of this movies genres
                 genres = genres.substr(genres.find(',') + 1, genres.size() - genres.find(',') + 1);
                 listGenres.insert(currentGenre); //keeps track of every genre
+                
+                if (listGenres.count(currentGenre) == 0)
+                {
+                    allGenres.push_back(currentGenre);
+                }
             }
 
             istringstream currentStream2(currentLine2); //opens 2nd file to get the description/title
@@ -54,6 +65,15 @@ int main() {
 
             Movie tempMovie = Movie(title, description, movieGenres); //make a new movie
             movies.push_back(tempMovie); //store movie in vector
+            
+            catalogue[title] = tempMovie;
+            
+            int totalMovies++;
+            
+            for (int i = 0; i < tempMovie.getGenre.size(); i++)
+            {
+                moviesByGenre[tempMovie.getGenre()[i]].push_back(tempMovie);
+            }
 
         }
     }
