@@ -214,6 +214,16 @@ int main() {
     }
 
     cout << totalMovies;
+	
+    for (int i = 0; i < 1; i++)
+    {
+	    cout << allGenres[i] << ": ";
+	    for (int j = 0; j < moviesByGenre[allGenres[i]].size(); j++)
+	    {
+		    cout << moviesByGenre[allGenres[i]][j].getTitle() << " ";
+	    }
+    }
+		    
 
     return 0;
 }
