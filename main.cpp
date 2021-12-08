@@ -108,7 +108,8 @@ vector<Edge*> makeEdges(map<string, vector<Movie>>& movies, vector<string>& genr
 {
     unordered_set<string> completed;
     vector<Edge*> edges;
-    for (int i = 0; i < genres.size(); i++)
+    //for (int i = 0; i < genres.size(); i++)
+    for (int i = 0; i < 1; i++)
     {
         for (int j = 0; j < movies[genres[i]].size(); j++)
         {
