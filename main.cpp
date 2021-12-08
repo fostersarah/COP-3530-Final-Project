@@ -75,7 +75,7 @@ vector<string> Movie::getGenre() {
 int calculateWeight(Movie movie1, Movie movie2) {
 	set<string> unique;
 	vector<string> movie1Genres = movie1.getGenre();
-	vector<string> movie2Genres = movie1.getGenre();
+	vector<string> movie2Genres = movie2.getGenre();
 	
 	for (int i = 0; i < movie1Genres.size(); i++) {
 		unique.insert(movie1Genres[i]);
@@ -223,15 +223,22 @@ int main() {
     }
 
     cout << totalMovies;
+
+    vector<Edge> edges = makeEdges(moviesByGenre, allGenres);
+
+    Graph adjList = Graph(edges, totalMovies);
+
+    cout << "done";
+
 	
-    for (int i = 0; i < 1; i++)
-    {
-	    cout << allGenres[i] << ": ";
-	    for (int j = 0; j < moviesByGenre[allGenres[i]].size(); j++)
-	    {
-		    cout << moviesByGenre[allGenres[i]][j].getTitle() << " ";
-	    }
-    }
+//    for (int i = 0; i < 1; i++)
+//    {
+//	    cout << allGenres[i] << ": ";
+//	    for (int j = 0; j < moviesByGenre[allGenres[i]].size(); j++)
+//	    {
+//		    cout << moviesByGenre[allGenres[i]][j].getTitle() << " ";
+//	    }
+//    }
 		    
 
     return 0;
