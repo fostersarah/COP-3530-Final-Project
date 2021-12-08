@@ -69,6 +69,77 @@ vector<string> Movie::getGenre() {
     return genre;
 }
 
+int calculateWeight(Movie movie1, Movie movie2) {
+	set<string> unique;
+	vector<string> movie1Genres = movie1.getGenres();
+	vector<string> movie2Genres = movie1.getGenres();
+	
+	for (int i = 0; i < movie1Genres.size(); i++) {
+		unique.insert(movie1Genres[i]);
+	}
+
+	for (int i = 0; i < movie2Genres.size(); i++) {
+		unique.insert(movie2Genres[i]);
+	}
+
+
+	sort(movie1Genres.begin(), movie1Genres.end());
+	sort(movie2Genres.begin(), movie2Genres.end());
+
+	vector<string> v(movie1Genres.size() + movie2Genres.size());
+	vector<string>::iterator it;
+
+	it = set_intersection(movie1Genres.begin(), movie1Genres.end(), movie2Genres.begin(), movie2Genres.end(), v.begin());
+
+	v.resize(it - v.begin());
+
+	float decimal = (float)1 - ((float)v.size() / (float)unique.size());
+
+	int result = 100 * decimal;
+
+	return result;
+
+}
+
+vector<Edge> makeEdges(map<string, vector<movie>>& movies, vector<string>& genres)
+{
+    unordered_set<string> completed;
+    vector<Edge> edges;
+    for (int i = 0; i < genres.size(); i++)
+    {
+        for (int j = 0; j < movies[genres[i]].size(); j++)
+        {
+            for (int k = j+1; k < movies[genres[i]].size(); k++)
+            {
+                string orient1 = movies[genres[i]][j].getTitle() + movies[genres[i]][k].getTitle();
+                string orient2 = movies[genres[i]][k].getTitle() + movies[genres[i]][j].getTitle();
+
+                if (completed.count(orient1) != 0 || completed.count(orient2) != 0)
+                {
+                    continue;
+                }
+                else
+                {
+                    completed.insert(orient1);
+                    completed.insert(orient2);
+                }
+
+                int weight = calculateWeight(movies[genres[i]][j], movies[genres[i]][k]);
+
+                Edge edge1 = Edge(movies[genres[i]][j].getTitle(), movies[genres[i]][k].getTitle(), weight)
+                Edge edge2 = Edge(movies[genres[i]][k].getTitle(), movies[genres[i]][j].getTitle(), weight)
+
+
+                edges.push_back(edge1);
+                edges.push_back(edge2);
+            {
+        {
+    {
+    
+    
+}
+
+
 int main() {
     vector<Movie> movies; //every movie in the list
     unordered_set<string> listGenres; //all possible genres
