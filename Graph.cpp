@@ -1,5 +1,6 @@
-
-
+#include <vector>
+#include <string>
+using namespace std;
 struct Edge
 {
 	string src, dest; // movie names
