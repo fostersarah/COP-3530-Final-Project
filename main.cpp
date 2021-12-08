@@ -4,6 +4,8 @@
 #include <vector>
 #include <unordered_set>
 #include <map>
+#include <set>
+#include <string>
 using namespace std;
 
 struct Edge
@@ -71,8 +73,8 @@ vector<string> Movie::getGenre() {
 
 int calculateWeight(Movie movie1, Movie movie2) {
 	set<string> unique;
-	vector<string> movie1Genres = movie1.getGenres();
-	vector<string> movie2Genres = movie1.getGenres();
+	vector<string> movie1Genres = movie1.getGenre();
+	vector<string> movie2Genres = movie1.getGenre();
 	
 	for (int i = 0; i < movie1Genres.size(); i++) {
 		unique.insert(movie1Genres[i]);
@@ -101,7 +103,7 @@ int calculateWeight(Movie movie1, Movie movie2) {
 
 }
 
-vector<Edge> makeEdges(map<string, vector<movie>>& movies, vector<string>& genres)
+vector<Edge> makeEdges(map<string, vector<Movie>>& movies, vector<string>& genres)
 {
     unordered_set<string> completed;
     vector<Edge> edges;
@@ -126,8 +128,8 @@ vector<Edge> makeEdges(map<string, vector<movie>>& movies, vector<string>& genre
 
                 int weight = calculateWeight(movies[genres[i]][j], movies[genres[i]][k]);
 
-                Edge edge1 = Edge(movies[genres[i]][j].getTitle(), movies[genres[i]][k].getTitle(), weight)
-                Edge edge2 = Edge(movies[genres[i]][k].getTitle(), movies[genres[i]][j].getTitle(), weight)
+                Edge edge1 = Edge(movies[genres[i]][j].getTitle(), movies[genres[i]][k].getTitle(), weight);
+                Edge edge2 = Edge(movies[genres[i]][k].getTitle(), movies[genres[i]][j].getTitle(), weight);
 
 
                 edges.push_back(edge1);
