@@ -1,1 +1,1 @@
-/Library/Developer/CommandLineTools/usr/bin/c++  -g -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX11.3.sdk -Wl,-search_paths_first -Wl,-headerpad_max_install_names  CMakeFiles/COP_3530_Final_Project.dir/main.cpp.o CMakeFiles/COP_3530_Final_Project.dir/Movie.cpp.o  -o COP_3530_Final_Project 
+/Library/Developer/CommandLineTools/usr/bin/c++  -g -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX11.3.sdk -Wl,-search_paths_first -Wl,-headerpad_max_install_names  CMakeFiles/COP_3530_Final_Project.dir/main.cpp.o  -o COP_3530_Final_Project 

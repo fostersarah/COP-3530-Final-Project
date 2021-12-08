@@ -7,5 +7,4 @@ include_directories(.)
 
 add_executable(COP_3530_Final_Project
         main.cpp
-        Movie.cpp
-        Movie.h)
+        )

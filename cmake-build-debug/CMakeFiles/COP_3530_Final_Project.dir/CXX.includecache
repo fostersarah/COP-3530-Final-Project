@@ -6,16 +6,8 @@
 
 #IncludeRegexTransform: 
 
-/Users/sarahfoster/COP-3530-Final-Project/Movie.h
-string
--
-vector
--
-
 /Users/sarahfoster/COP-3530-Final-Project/main.cpp
 iostream
--
-string
 -
 fstream
 -
@@ -25,6 +17,6 @@ vector
 -
 unordered_set
 -
-Movie.h
-/Users/sarahfoster/COP-3530-Final-Project/Movie.h
+map
+-
 

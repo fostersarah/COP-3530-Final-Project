@@ -143,33 +143,6 @@ COP_3530_Final_Project/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/COP_3530_Final_Project.dir/build.make CMakeFiles/COP_3530_Final_Project.dir/build
 .PHONY : COP_3530_Final_Project/fast
 
-Movie.o: Movie.cpp.o
-
-.PHONY : Movie.o
-
-# target to build an object file
-Movie.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/COP_3530_Final_Project.dir/build.make CMakeFiles/COP_3530_Final_Project.dir/Movie.cpp.o
-.PHONY : Movie.cpp.o
-
-Movie.i: Movie.cpp.i
-
-.PHONY : Movie.i
-
-# target to preprocess a source file
-Movie.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/COP_3530_Final_Project.dir/build.make CMakeFiles/COP_3530_Final_Project.dir/Movie.cpp.i
-.PHONY : Movie.cpp.i
-
-Movie.s: Movie.cpp.s
-
-.PHONY : Movie.s
-
-# target to generate assembly for a file
-Movie.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/COP_3530_Final_Project.dir/build.make CMakeFiles/COP_3530_Final_Project.dir/Movie.cpp.s
-.PHONY : Movie.cpp.s
-
 main.o: main.cpp.o
 
 .PHONY : main.o
@@ -206,9 +179,6 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... COP_3530_Final_Project"
-	@echo "... Movie.o"
-	@echo "... Movie.i"
-	@echo "... Movie.s"
 	@echo "... main.o"
 	@echo "... main.i"
 	@echo "... main.s"

@@ -1,12 +1,44 @@
 #include <iostream>
-#include <string>
 #include <fstream>
 #include <sstream>
 #include <vector>
 #include <unordered_set>
 #include <map>
-#include "Movie.h"
 using namespace std;
+
+class Movie {
+    string title;
+    string description;
+    vector<string> genre;
+
+public:
+    Movie();
+    Movie(string& title, string& description, vector<string>& genre);
+    string getTitle();
+    string getDescription();
+    vector<string> getGenre();
+};
+Movie::Movie() {
+    title = "";
+    description = "";
+    vector<string> genres;
+    genre = genres;
+}
+
+Movie::Movie(string& title, string& description, vector<string>& genre) {
+    this->title = title;
+    this->description = description;
+    this->genre = genre;
+}
+string Movie::getDescription() {
+    return description;
+}
+string Movie::getTitle() {
+    return title;
+}
+vector<string> Movie::getGenre() {
+    return genre;
+}
 
 int main() {
     vector<Movie> movies; //every movie in the list
@@ -15,7 +47,7 @@ int main() {
     vector<string> allGenres;
     map<string, vector<Movie>> moviesByGenre;
     map<string, Movie> catalogue;
-    int totalMovies;
+    int totalMovies = 0;
 
     string currentLine; //file i/o
     string currentLine2;
@@ -63,20 +95,21 @@ int main() {
             getline(currentStream2,trash, ',');
             getline(currentStream2, title);
 
-            Movie tempMovie = Movie(title, description, movieGenres); //make a new movie
+            Movie tempMovie =  Movie(title, description, movieGenres); //make a new movie
             movies.push_back(tempMovie); //store movie in vector
             
             catalogue[title] = tempMovie;
             
-            int totalMovies++;
+            totalMovies++;
             
-            for (int i = 0; i < tempMovie.getGenre.size(); i++)
+            for (int i = 0; i < tempMovie.getGenre().size(); i++)
             {
                 moviesByGenre[tempMovie.getGenre()[i]].push_back(tempMovie);
             }
-
         }
     }
+
+    cout << totalMovies;
 
     return 0;
 }
