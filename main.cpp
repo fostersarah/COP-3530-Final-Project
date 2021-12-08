@@ -28,12 +28,12 @@ public:
     map <string, vector<pair<string,int>>> adjList;
     // e.g. adjList["Toy Story"] = {("Finding Nemo", 40), ("Toy Story 2", 100)}
 
-    Graph(const vector<Edge>& edges, int vertices)
+    Graph(const vector<Edge*>& edges, int vertices)
     {
         numVertices = vertices;
         for (auto &edge : edges)
         {
-            adjList[edge.src].push_back(make_pair(edge.dest, edge.weight));
+            adjList[edge->src].push_back(make_pair(edge->dest, edge->weight));
         }
     }
 };
@@ -108,8 +108,8 @@ vector<Edge*> makeEdges(map<string, vector<Movie>>& movies, vector<string>& genr
 {
     unordered_set<string> completed;
     vector<Edge*> edges;
-    //for (int i = 0; i < genres.size(); i++)
-    for (int i = 0; i < 1; i++)
+    for (int i = 0; i < genres.size(); i++)
+    //for (int i = 0; i < 1; i++)
     {
         for (int j = 0; j < movies[genres[i]].size(); j++)
         {
@@ -177,7 +177,7 @@ int main() {
 
     if (inputFile.is_open() && inputFile2.is_open()) {
         while(getline(inputFile, currentLine) && getline(inputFile2, currentLine2)
-        && getline(inputFile3, currentLine3)) {
+        && getline(inputFile3, currentLine3) && totalMovies < 10000) {
 
             istringstream currentStream(currentLine);
 
@@ -227,7 +227,7 @@ int main() {
 
     vector<Edge*> edges = makeEdges(moviesByGenre, allGenres);
 
-    //Graph adjList = Graph(edges, totalMovies);
+    Graph adjList = Graph(edges, totalMovies);
 
     cout << "done";
 
