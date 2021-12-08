@@ -135,6 +135,7 @@ vector<Edge> makeEdges(map<string, vector<movie>>& movies, vector<string>& genre
 	    }
 	}
     }
+    return edges;
     
     
 }
