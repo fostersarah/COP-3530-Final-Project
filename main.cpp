@@ -132,9 +132,9 @@ vector<Edge> makeEdges(map<string, vector<movie>>& movies, vector<string>& genre
 
                 edges.push_back(edge1);
                 edges.push_back(edge2);
-            {
-        {
-    {
+	    }
+	}
+    }
     
     
 }
