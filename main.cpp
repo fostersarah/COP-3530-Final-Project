@@ -104,10 +104,10 @@ int calculateWeight(Movie movie1, Movie movie2) {
 
 }
 
-vector<Edge> makeEdges(map<string, vector<Movie>>& movies, vector<string>& genres)
+vector<Edge*> makeEdges(map<string, vector<Movie>>& movies, vector<string>& genres)
 {
     unordered_set<string> completed;
-    vector<Edge> edges;
+    vector<Edge*> edges;
     for (int i = 0; i < genres.size(); i++)
     {
         for (int j = 0; j < movies[genres[i]].size(); j++)
@@ -129,8 +129,8 @@ vector<Edge> makeEdges(map<string, vector<Movie>>& movies, vector<string>& genre
 
                 int weight = calculateWeight(movies[genres[i]][j], movies[genres[i]][k]);
 
-                Edge edge1 = Edge(movies[genres[i]][j].getTitle(), movies[genres[i]][k].getTitle(), weight);
-                Edge edge2 = Edge(movies[genres[i]][k].getTitle(), movies[genres[i]][j].getTitle(), weight);
+                Edge* edge1 = new Edge(movies[genres[i]][j].getTitle(), movies[genres[i]][k].getTitle(), weight);
+                Edge* edge2 = new Edge(movies[genres[i]][k].getTitle(), movies[genres[i]][j].getTitle(), weight);
 
 
                 edges.push_back(edge1);
@@ -145,7 +145,7 @@ vector<Edge> makeEdges(map<string, vector<Movie>>& movies, vector<string>& genre
 
 
 int main() {
-    vector<Movie> movies; //every movie in the list
+    //vector<Movie> movies; //every movie in the list
     unordered_set<string> listGenres; //all possible genres
     
     vector<string> allGenres;
@@ -209,7 +209,7 @@ int main() {
             title = currentLine3;
 
             Movie tempMovie =  Movie(title, description, movieGenres); //make a new movie
-            movies.push_back(tempMovie); //store movie in vector
+            //movies.push_back(tempMovie); //store movie in vector
             
             catalogue[title] = tempMovie;
             
@@ -224,9 +224,9 @@ int main() {
 
     cout << totalMovies;
 
-    vector<Edge> edges = makeEdges(moviesByGenre, allGenres);
+    vector<Edge*> edges = makeEdges(moviesByGenre, allGenres);
 
-    Graph adjList = Graph(edges, totalMovies);
+    //Graph adjList = Graph(edges, totalMovies);
 
     cout << "done";
 
