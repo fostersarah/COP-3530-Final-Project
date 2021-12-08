@@ -155,22 +155,28 @@ int main() {
 
     string currentLine; //file i/o
     string currentLine2;
+    string currentLine3;
     ifstream inputFile;
     ifstream inputFile2;
+    ifstream inputFile3;
 
     string trash; //variables for getting info
     string genres;
     string description;
     string title;
 
-    inputFile.open("genres-Table 1.csv"); //open files
-    inputFile2.open("overviewtitle.csv");
+    inputFile.open("genres.csv"); //open files
+    inputFile2.open("overview.csv");
+    inputFile3.open("title.csv");
+
 
     getline(inputFile, currentLine); //get rid of first line
     getline(inputFile2, currentLine2);
+    getline(inputFile3, currentLine3);
 
     if (inputFile.is_open() && inputFile2.is_open()) {
-        while(getline(inputFile, currentLine) && getline(inputFile2, currentLine2)) {
+        while(getline(inputFile, currentLine) && getline(inputFile2, currentLine2)
+        && getline(inputFile3, currentLine3)) {
 
             istringstream currentStream(currentLine);
 
@@ -184,20 +190,23 @@ int main() {
                 string currentGenre = genres.substr(0, genres.find(','));
                 movieGenres.push_back(currentGenre); //keeps track of this movies genres
                 genres = genres.substr(genres.find(',') + 1, genres.size() - genres.find(',') + 1);
-                listGenres.insert(currentGenre); //keeps track of every genre
-                
                 if (listGenres.count(currentGenre) == 0)
                 {
                     allGenres.push_back(currentGenre);
                 }
+                listGenres.insert(currentGenre); //keeps track of every genre
+                
+
             }
 
-            istringstream currentStream2(currentLine2); //opens 2nd file to get the description/title
-
-            getline(currentStream2, trash, '"');
-            getline(currentStream2, description, '"');
-            getline(currentStream2,trash, ',');
-            getline(currentStream2, title);
+//            istringstream currentStream2(currentLine2); //opens 2nd file to get the description/title
+//
+//            getline(currentStream2, trash, '"');
+//            getline(currentStream2, description, '"');
+//            getline(currentStream2,trash, ',');
+//            getline(currentStream2, title);
+            description = currentLine2;
+            title = currentLine3;
 
             Movie tempMovie =  Movie(title, description, movieGenres); //make a new movie
             movies.push_back(tempMovie); //store movie in vector
