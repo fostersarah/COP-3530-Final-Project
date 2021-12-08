@@ -1,0 +1,32 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/Users/sarahfoster/COP-3530-Final-Project/Movie.h
+string
+-
+vector
+-
+
+/Users/sarahfoster/COP-3530-Final-Project/main.cpp
+iostream
+-
+string
+-
+fstream
+-
+sstream
+-
+vector
+-
+unordered_set
+-
+unordered_map
+-
+Movie.h
+/Users/sarahfoster/COP-3530-Final-Project/Movie.h
+
