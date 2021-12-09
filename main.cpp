@@ -6,6 +6,7 @@
 #include <map>
 #include <set>
 #include <string>
+#include <chrono>
 #include <algorithm>
 using namespace std;
 
@@ -314,9 +315,6 @@ vector<int> dijkstraMatrix(const Matrix& arr, int src) {
     }
 
     return distance;
-
-  
-
 }
 
 
@@ -400,40 +398,52 @@ int main() {
 
     Graph adjList = Graph(edges, totalMovies);
 
-    vector<int> d = dijkstraList(adjList, 898);
+    
+    auto start = chrono::steady_clock::now();
 
-    cout << "Furthest from: " << catalogueVector[898].getTitle() << endl;
+    vector<int> shortestList = dijkstraList(adjList, 0);
 
-    int imposter = catalogue["Cape Fear"].getIndex();
-    cout << d[imposter] << endl;
+    auto end = chrono::steady_clock::now();
+
+    auto diff = end - start;
+
+    cout << "Furthest from: " << catalogueVector[0].getTitle() << endl;
+
     
     int indexMax = 0;
     int max = 0;
 
-    for (int i = 0; i < d.size(); i++) {
-        if (d[i] > max) {
+    for (int i = 0; i < shortestList.size(); i++) {
+        if (shortestList[i] > max) {
             indexMax = i;
-            max = d[i];
+            max = shortestList[i];
         }
     }
-    cout << "AdjList Answer: " << catalogueVector[indexMax].getTitle() <<" Length: " << max << endl;
+    cout << "AdjList Answer: " << catalogueVector[indexMax].getTitle() << " Length: " << max << " Time: " << chrono::duration <double, std::milli>(diff).count() << " ms" << endl;
 
     Matrix test(totalMovies);
     //cout from 0 to 1
     makeMatrix(moviesByGenre, allGenres, test);
-    vector<int> testVec = dijkstraMatrix(test, 898);
+
+    start = std::chrono::steady_clock::now();
+
+    vector<int> shortestMatrix = dijkstraMatrix(test, 0);
+
+    end = std::chrono::steady_clock::now();
+
+    diff = end - start;
     
     indexMax = 0;
     max = 0; 
-    for (int i = 0; i < testVec.size(); i++)
+    for (int i = 0; i < shortestMatrix.size(); i++)
     {
-        if (testVec[i] > max && testVec[i] != INT_MAX)
+        if (shortestMatrix[i] > max && shortestMatrix[i] != INT_MAX)
         {
             indexMax = i;
-            max = testVec[i];
+            max = shortestMatrix[i];
         }
     }
-    cout << "Matrix Answer: " << catalogueVector[indexMax].getTitle() << " Length: " << max << endl;
+    cout << "Matrix Answer: " << catalogueVector[indexMax].getTitle() << " Length: " << max << " Time: " << chrono::duration <double, std::milli>(diff).count() << " ms" << endl;
 
     //cout << catalogueVector[indexMax].getTitle();
 
