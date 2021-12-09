@@ -49,6 +49,7 @@ public:
     Movie(string& title, string& description, vector<string>& genre, int index);
     string getTitle();
     string getDescription();
+    int getIndex();
     vector<string> getGenre();
 };
 Movie::Movie() {
@@ -71,6 +72,10 @@ string Movie::getDescription() {
 string Movie::getTitle() {
     return title;
 }
+int Movie::getIndex() {
+    return index;
+};
+
 vector<string> Movie::getGenre() {
     return genre;
 }
