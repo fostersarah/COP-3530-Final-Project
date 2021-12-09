@@ -42,16 +42,18 @@ public:
 };
 
 class Matrix {
-public:
     vector<vector<int>> matrix;
+public:
     Matrix() 
     {
         for (int i = 0; i < 2000; i++)
         {
+            vector<int> row;
             for (int j = 0; j < 2000; j++)
             {
-                matrix[i][j] = 0;
+                row.push_back(j);
             }
+            matrix.push_back(row);
         }
     }
     void insertWeight(int to, int from, int weight) {
