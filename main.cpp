@@ -11,9 +11,9 @@ using namespace std;
 
 struct Edge
 {
-    string src, dest; // movie names
+    int src, dest; // movie names
     int weight; // weight between movies
-    Edge(string _src, string _dest, int _weight)
+    Edge(int _src, int _dest, int _weight)
     {
         src = _src;
         dest = _dest;
@@ -25,7 +25,7 @@ class Graph
 {
 public:
     int numVertices; // number of movies
-    map <string, vector<pair<string,int>>> adjList;
+    map <int, vector<pair<int,int>>> adjList;
     // e.g. adjList["Toy Story"] = {("Finding Nemo", 40), ("Toy Story 2", 100)}
 
     Graph(const vector<Edge*>& edges, int vertices)
@@ -138,8 +138,8 @@ vector<Edge*> makeEdges(map<string, vector<Movie>>& movies, vector<string>& genr
 
                 int weight = calculateWeight(movies[genres[i]][j], movies[genres[i]][k]);
 
-                Edge* edge1 = new Edge(movies[genres[i]][j].getTitle(), movies[genres[i]][k].getTitle(), weight);
-                Edge* edge2 = new Edge(movies[genres[i]][k].getTitle(), movies[genres[i]][j].getTitle(), weight);
+                Edge* edge1 = new Edge(movies[genres[i]][j].getIndex(), movies[genres[i]][k].getIndex(), weight);
+                Edge* edge2 = new Edge(movies[genres[i]][k].getIndex(), movies[genres[i]][j].getIndex(), weight);
 
 
                 edges.push_back(edge1);
