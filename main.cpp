@@ -31,7 +31,7 @@ public:
     Graph(const vector<Edge*>& edges, int vertices)
     {
         numVertices = vertices;
-        
+
         adjList.resize(vertices);
 
         for (auto &edge : edges)
@@ -289,6 +289,21 @@ int main() {
     vector<Edge*> edges = makeEdges(moviesByGenre, allGenres);
 
     Graph adjList = Graph(edges, totalMovies);
+
+    vector<int> d = dijkstra(adjList, 898);
+
+
+    int indexMax = 0;
+    int max = 0;
+
+    for (int i = 0; i < d.size(); i++) {
+        if (d[i] > max) {
+            indexMax = i;
+            max = d[i];
+        }
+    }
+
+    cout << catalogueVector[indexMax].getTitle();
 
     cout << "done";
 
