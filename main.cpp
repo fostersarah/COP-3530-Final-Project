@@ -43,7 +43,17 @@ public:
 
 class Matrix {
 public:
-    int matrix[2000][2000];
+    vector<vector<int>> matrix;
+    Matrix() 
+    {
+        for (int i = 0; i < 2000; i++)
+        {
+            for (int j = 0; j < 2000; j++)
+            {
+                matrix[i][j] = 0;
+            }
+        }
+    }
     void insertWeight(int to, int from, int weight) {
         matrix[to][from] = weight;
         matrix[from][to] = weight;
@@ -338,13 +348,13 @@ int main() {
 
     cout << totalMovies;
 
-    vector<Edge*> edges = makeEdges(moviesByGenre, allGenres);
+    //vector<Edge*> edges = makeEdges(moviesByGenre, allGenres);
 
-    Graph adjList = Graph(edges, totalMovies);
+    //Graph adjList = Graph(edges, totalMovies);
 
-    vector<int> d = dijkstra(adjList, 898);
+    //vector<int> d = dijkstra(adjList, 898);
 
-
+    /*
     int indexMax = 0;
     int max = 0;
 
@@ -354,12 +364,13 @@ int main() {
             max = d[i];
         }
     }
+    */
 
-    Matrix matrix;
+    Matrix test;
     //cout from 0 to 1
-    makeMatrix(moviesByGenre, allGenres, matrix);
-    cout << matrix.matrix[0][1];
-    cout << catalogueVector[indexMax].getTitle();
+    makeMatrix(moviesByGenre, allGenres, test);
+    cout << test.getWeight(0,1);
+    //cout << catalogueVector[indexMax].getTitle();
 
     cout << "done";
 
