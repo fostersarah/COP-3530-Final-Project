@@ -43,9 +43,11 @@ public:
 
 class Matrix {
     vector<vector<int>> matrix;
+    int numVertices;
 public:
-    Matrix() 
+    Matrix(int vertices) 
     {
+        numVertices = vertices;
         for (int i = 0; i < 2000; i++)
         {
             vector<int> row;
@@ -70,6 +72,10 @@ public:
         else {
             return false;
         }
+    }
+    int getNumVertices()
+    {
+        return numVertices;
     }
 };
 
@@ -219,7 +225,7 @@ void makeMatrix(map<string, vector<Movie>>& movies, vector<string>& genres, Matr
     }
 }
 
-vector<int> dijkstra(const Graph& graph, int src) {
+vector<int> dijkstraList(const Graph& graph, int src) {
     int s = src;
 
     int vertices = graph.numVertices;
@@ -253,6 +259,60 @@ vector<int> dijkstra(const Graph& graph, int src) {
             {
                 distance[graph.adjList[s][i].first] = distance[s] + graph.adjList[s][i].second;
                 previous[graph.adjList[s][i].first] += 1;
+            }
+        }
+        computed.insert(s);
+        processing.erase(s);
+        // find new s by making sure it is the smallest in distance but not in computed
+
+        int min = INT_MAX;
+        for (int i = 0; i < vertices; i++)
+        {
+            if (distance[i] < min && computed.count(i) == 0)
+            {
+                min = distance[i];
+                s = i;
+            }
+        }
+    }
+
+    return distance;
+}
+
+vector<int> dijkstraMatrix(Matrix& arr, int src) {
+    int s = src;
+
+    int vertices = arr.getNumVertices();
+    vector<int> distance;
+    for (int i = 0; i < vertices; i++)
+    {
+        distance.push_back(INT_MAX);
+    }
+    distance[s] = 0;
+    int previous[vertices];
+    for (int i = 0; i < vertices; i++)
+    {
+        previous[i] = -1;
+    }
+
+    set<int> computed;
+    set<int> processing;
+    for (int i = 0; i < vertices; i++)
+    {
+        processing.insert(i);
+    }
+    computed.insert(s);
+    processing.erase(s);
+
+    while (!processing.empty())
+    {
+        for (int i = 0; i < 2000; i++)
+        {
+
+            if (distance[i] > distance[s] + arr.getWeight(s, i))
+            {
+                distance[i] = distance[s] + arr.getWeight(s,i);
+                previous[i] += 1;
             }
         }
         computed.insert(s);
@@ -368,10 +428,12 @@ int main() {
     }
     */
 
-    Matrix test;
+    Matrix test(totalMovies);
     //cout from 0 to 1
     makeMatrix(moviesByGenre, allGenres, test);
-    cout << test.getWeight(0,1);
+
+    vector<int> testVec = dijkstraMatrix(test, 0);
+    cout << testVec[1] << endl;
     //cout << catalogueVector[indexMax].getTitle();
 
     cout << "done";
