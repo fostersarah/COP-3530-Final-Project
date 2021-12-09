@@ -171,7 +171,7 @@ vector<Edge*> makeEdges(map<string, vector<Movie>>& movies, vector<string>& genr
 	    }
 	}
     }
-    //return edges;
+    return edges;
     
     
 }
@@ -355,10 +355,10 @@ int main() {
         }
     }
 
-    //Matrix matrix;
+    Matrix matrix;
     //cout from 0 to 1
-    //makeMatrix(moviesByGenre, allGenres, matrix);
-    //cout << matrix.matrix[0][1];
+    makeMatrix(moviesByGenre, allGenres, matrix);
+    cout << matrix.matrix[0][1];
     cout << catalogueVector[indexMax].getTitle();
 
     cout << "done";
