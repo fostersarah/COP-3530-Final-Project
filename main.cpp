@@ -42,10 +42,11 @@ class Movie {
     string title;
     string description;
     vector<string> genre;
+    int index;
 
 public:
     Movie();
-    Movie(string& title, string& description, vector<string>& genre);
+    Movie(string& title, string& description, vector<string>& genre, int index);
     string getTitle();
     string getDescription();
     vector<string> getGenre();
@@ -55,12 +56,14 @@ Movie::Movie() {
     description = "";
     vector<string> genres;
     genre = genres;
+    index = 0;
 }
 
-Movie::Movie(string& title, string& description, vector<string>& genre) {
+Movie::Movie(string& title, string& description, vector<string>& genre, int index) {
     this->title = title;
     this->description = description;
     this->genre = genre;
+    this->index = index;
 }
 string Movie::getDescription() {
     return description;
@@ -152,6 +155,7 @@ int main() {
     vector<string> allGenres;
     map<string, vector<Movie>> moviesByGenre;
     map<string, Movie> catalogue;
+    vector<Movie> catalogueVector;
     int totalMovies = 0;
 
     string currentLine; //file i/o
@@ -177,7 +181,7 @@ int main() {
 
     if (inputFile.is_open() && inputFile2.is_open()) {
         while(getline(inputFile, currentLine) && getline(inputFile2, currentLine2)
-        && getline(inputFile3, currentLine3) && totalMovies < 10000) {
+        && getline(inputFile3, currentLine3) && totalMovies < 2000) {
 
             istringstream currentStream(currentLine);
 
@@ -200,19 +204,14 @@ int main() {
 
             }
 
-//            istringstream currentStream2(currentLine2); //opens 2nd file to get the description/title
-//
-//            getline(currentStream2, trash, '"');
-//            getline(currentStream2, description, '"');
-//            getline(currentStream2,trash, ',');
-//            getline(currentStream2, title);
             description = currentLine2;
             title = currentLine3;
 
-            Movie tempMovie =  Movie(title, description, movieGenres); //make a new movie
+            Movie tempMovie =  Movie(title, description, movieGenres, totalMovies); //make a new movie
             //movies.push_back(tempMovie); //store movie in vector
             
             catalogue[title] = tempMovie;
+            catalogueVector.push_back(tempMovie);
             
             totalMovies++;
             
