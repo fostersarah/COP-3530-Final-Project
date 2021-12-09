@@ -41,6 +41,27 @@ public:
     }
 };
 
+class Matrix {
+public:
+    int matrix[2000][2000];
+    void insertWeight(int to, int from, int weight) {
+        matrix[to][from] = weight;
+        matrix[from][to] = weight;
+    }
+    int getWeight(int to, int from) {
+        return matrix[to][from];
+    }
+    bool areAdjacent(int to, int from) {
+        if (!matrix[to][from]) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+};
+
+
 class Movie {
     string title;
     string description;
@@ -150,9 +171,40 @@ vector<Edge*> makeEdges(map<string, vector<Movie>>& movies, vector<string>& genr
 	    }
 	}
     }
-    return edges;
+    //return edges;
     
     
+}
+
+void makeMatrix(map<string, vector<Movie>>& movies, vector<string>& genres, Matrix& matrix)
+{
+    unordered_set<string> completed;
+    for (int i = 0; i < genres.size(); i++)
+    {
+        for (int j = 0; j < movies[genres[i]].size(); j++)
+        {
+            for (int k = j+1; k < movies[genres[i]].size(); k++)
+            {
+                string orient1 = movies[genres[i]][j].getTitle() + movies[genres[i]][k].getTitle();
+                string orient2 = movies[genres[i]][k].getTitle() + movies[genres[i]][j].getTitle();
+
+                if (completed.count(orient1) != 0 || completed.count(orient2) != 0)
+                {
+                    continue;
+                }
+                else
+                {
+                    completed.insert(orient1);
+                    completed.insert(orient2);
+                }
+
+                int weight = calculateWeight(movies[genres[i]][j], movies[genres[i]][k]);
+
+                matrix.insertWeight(movies[genres[i]][j].getIndex(), movies[genres[i]][k].getIndex(), weight);
+
+            }
+        }
+    }
 }
 
 vector<int> dijkstra(const Graph& graph, int src) {
@@ -303,6 +355,10 @@ int main() {
         }
     }
 
+    //Matrix matrix;
+    //cout from 0 to 1
+    //makeMatrix(moviesByGenre, allGenres, matrix);
+    //cout << matrix.matrix[0][1];
     cout << catalogueVector[indexMax].getTitle();
 
     cout << "done";
