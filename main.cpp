@@ -80,7 +80,6 @@ public:
     }
 };
 
-
 class Movie {
     string title;
     string description;
@@ -136,7 +135,6 @@ int calculateWeight(Movie movie1, Movie movie2) {
 		unique.insert(movie2Genres[i]);
 	}
 
-
 	sort(movie1Genres.begin(), movie1Genres.end());
 	sort(movie2Genres.begin(), movie2Genres.end());
 
@@ -152,19 +150,17 @@ int calculateWeight(Movie movie1, Movie movie2) {
 	int result = 100 * decimal;
 
 	return result;
-
 }
 
-vector<Edge*> makeEdges(map<string, vector<Movie>>& movies, vector<string>& genres)
+vector<Edge*> makeEdges(map<string, vector<Movie>>& movies, vector<string>& genres) 
 {
     unordered_set<string> completed;
     vector<Edge*> edges;
-    for (int i = 0; i < genres.size(); i++)
-    //for (int i = 0; i < 1; i++)
+    for (int i = 0; i < genres.size(); i++) 
     {
-        for (int j = 0; j < movies[genres[i]].size(); j++)
+        for (int j = 0; j < movies[genres[i]].size(); j++) 
         {
-            for (int k = j+1; k < movies[genres[i]].size(); k++)
+            for (int k = j+1; k < movies[genres[i]].size(); k++)  
             {
                 string orient1 = movies[genres[i]][j].getTitle() + movies[genres[i]][k].getTitle();
                 string orient2 = movies[genres[i]][k].getTitle() + movies[genres[i]][j].getTitle();
@@ -191,11 +187,9 @@ vector<Edge*> makeEdges(map<string, vector<Movie>>& movies, vector<string>& genr
 	}
     }
     return edges;
-    
-    
 }
 
-void makeMatrix(map<string, vector<Movie>>& movies, vector<string>& genres, Matrix& matrix)
+void makeMatrix(map<string, vector<Movie>>& movies, vector<string>& genres, Matrix& matrix) // O(gn^2) time where g is num genres and n is num movies per genre
 {
     unordered_set<string> completed;
     for (int i = 0; i < genres.size(); i++)
@@ -243,18 +237,17 @@ vector<int> dijkstraList(const Graph& graph, int src) {
 
     set<int> computed;
     set<int> processing;
-    for (int i = 0; i < vertices; i++)
+    for (int i = 0; i < vertices; i++) 
     {
         processing.insert(i);
     }
     computed.insert(src);
     processing.erase(src);
 
-    while (!processing.empty())
+    while (!processing.empty()) 
     {
         for (int i = 0; i < graph.adjList[s].size(); i++)
         {
-
             if (distance[graph.adjList[s][i].first] > distance[s] + graph.adjList[s][i].second)
             {
                 distance[graph.adjList[s][i].first] = distance[s] + graph.adjList[s][i].second;
@@ -263,7 +256,6 @@ vector<int> dijkstraList(const Graph& graph, int src) {
         }
         computed.insert(s);
         processing.erase(s);
-        // find new s by making sure it is the smallest in distance but not in computed
 
         int min = INT_MAX;
         for (int i = 0; i < vertices; i++)
@@ -275,7 +267,6 @@ vector<int> dijkstraList(const Graph& graph, int src) {
             }
         }
     }
-
     return distance;
 }
 
@@ -291,7 +282,7 @@ vector<int> dijkstraMatrix(const Matrix& arr, int src) {
 
     distance[src] = 0;
 
-    for (int i = 0; i < vertices; i++) // had vertices - 1 before
+    for (int i = 0; i < vertices; i++) 
     {
         int min = INT_MAX;
         int minIndex;
@@ -313,14 +304,12 @@ vector<int> dijkstraMatrix(const Matrix& arr, int src) {
             }
         }
     }
-
     return distance;
 }
 
-
 int main() {
-    //vector<Movie> movies; //every movie in the list
     unordered_set<string> listGenres; //all possible genres
+    unordered_set<string> listMovies;
     
     vector<string> allGenres;
     map<string, vector<Movie>> moviesByGenre;
@@ -343,7 +332,6 @@ int main() {
     inputFile.open("genres.csv"); //open files
     inputFile2.open("overview.csv");
     inputFile3.open("title.csv");
-
 
     getline(inputFile, currentLine); //get rid of first line
     getline(inputFile2, currentLine2);
@@ -370,15 +358,13 @@ int main() {
                     allGenres.push_back(currentGenre);
                 }
                 listGenres.insert(currentGenre); //keeps track of every genre
-                
-
             }
 
             description = currentLine2;
             title = currentLine3;
+            listMovies.insert(title);
 
-            Movie tempMovie =  Movie(title, description, movieGenres, totalMovies); //make a new movie
-            //movies.push_back(tempMovie); //store movie in vector
+            Movie tempMovie =  Movie(title, description, movieGenres, totalMovies); 
             
             catalogue[title] = tempMovie;
             catalogueVector.push_back(tempMovie);
@@ -392,73 +378,108 @@ int main() {
         }
     }
 
-    cout << totalMovies << endl;
-
     vector<Edge*> edges = makeEdges(moviesByGenre, allGenres);
-
     Graph adjList = Graph(edges, totalMovies);
 
-    
-    auto start = chrono::steady_clock::now();
+    Matrix matrixList(totalMovies);
+    makeMatrix(moviesByGenre, allGenres, matrixList);
 
-    vector<int> shortestList = dijkstraList(adjList, 0);
+    bool keepRunning = true;
 
-    auto end = chrono::steady_clock::now();
-
-    auto diff = end - start;
-
-    cout << "Furthest from: " << catalogueVector[0].getTitle() << endl;
-
-    
-    int indexMax = 0;
-    int max = 0;
-
-    for (int i = 0; i < shortestList.size(); i++) {
-        if (shortestList[i] > max) {
-            indexMax = i;
-            max = shortestList[i];
-        }
-    }
-    cout << "AdjList Answer: " << catalogueVector[indexMax].getTitle() << " Length: " << max << " Time: " << chrono::duration <double, std::milli>(diff).count() << " ms" << endl;
-
-    Matrix test(totalMovies);
-    //cout from 0 to 1
-    makeMatrix(moviesByGenre, allGenres, test);
-
-    start = std::chrono::steady_clock::now();
-
-    vector<int> shortestMatrix = dijkstraMatrix(test, 0);
-
-    end = std::chrono::steady_clock::now();
-
-    diff = end - start;
-    
-    indexMax = 0;
-    max = 0; 
-    for (int i = 0; i < shortestMatrix.size(); i++)
+    while (keepRunning)
     {
-        if (shortestMatrix[i] > max && shortestMatrix[i] != INT_MAX)
+        cout << "Enter Movie Name: ";
+        string userTitle;
+        getline(cin, userTitle);
+
+        int userIndex = 0;
+
+        if (!listMovies.count(userTitle))
         {
-            indexMax = i;
-            max = shortestMatrix[i];
+            cout << userTitle << " is not in our dataset" << endl;
+            continue;
         }
+        else
+        {
+            userIndex = catalogue[userTitle].getIndex();
+        }
+
+        cout << "What Graph Structure Should Be Used? (list/matrix) ";
+        string graphType;
+        cin >> graphType;
+
+        bool isList = false;
+        bool isMatrix = false;
+
+        if (graphType.compare("list") == 0)
+        {
+            isList = true;
+            isMatrix = false;
+        }
+        else
+        {
+            isList = false;
+            isMatrix = true;
+        }
+
+        vector<int> shortestList;
+
+        auto start = chrono::steady_clock::now();
+
+        int indexMax = 0;
+        int max = 0;
+
+        if (isList)
+        {
+            shortestList = dijkstraList(adjList, userIndex);
+            for (int i = 0; i < shortestList.size(); i++) {
+                if (shortestList[i] > max) {
+                    indexMax = i;
+                    max = shortestList[i];
+                }
+            }
+        }
+        else if (isMatrix)
+        {
+            shortestList = dijkstraMatrix(matrixList, userIndex);
+            for (int i = 0; i < shortestList.size(); i++)
+            {
+                if (shortestList[i] > max && shortestList[i] != INT_MAX)
+                {
+                    indexMax = i;
+                    max = shortestList[i];
+                }
+            }
+        }
+
+        auto end = std::chrono::steady_clock::now();
+        auto diff = end - start;
+
+        cout << "The Furthest Movie From " << catalogueVector[userIndex].getTitle() << " is:" << endl;
+
+        cout << "Title: " << catalogueVector[indexMax].getTitle() << endl;
+        cout << "Genre: ";
+        for (int i = 0; i < catalogueVector[indexMax].getGenre().size(); i++)
+        {
+            if (i != catalogueVector[indexMax].getGenre().size() - 1)
+            {
+                cout << catalogueVector[indexMax].getGenre()[i] << ", ";
+            }
+            else
+            {
+                cout << catalogueVector[indexMax].getGenre()[i] << endl;
+            }
+        }
+        cout << "Description: " << catalogueVector[indexMax].getDescription() << endl;
+        cout << endl;
+        cout << "Time to Run: " << chrono::duration <double, std::milli>(diff).count() << " ms" << endl;
+
+        cout << "Run again? (1/0) ";
+        char yesNo;
+        cin >> yesNo;
+        cin.ignore();
+        keepRunning = yesNo-48;
     }
-    cout << "Matrix Answer: " << catalogueVector[indexMax].getTitle() << " Length: " << max << " Time: " << chrono::duration <double, std::milli>(diff).count() << " ms" << endl;
-
-    //cout << catalogueVector[indexMax].getTitle();
-
-    cout << "done";
-
-	
-//    for (int i = 0; i < 1; i++)
-//    {
-//	    cout << allGenres[i] << ": ";
-//	    for (int j = 0; j < moviesByGenre[allGenres[i]].size(); j++)
-//	    {
-//		    cout << moviesByGenre[allGenres[i]][j].getTitle() << " ";
-//	    }
-//    }
-		    
-
+   
     return 0;
 }
