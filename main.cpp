@@ -378,6 +378,9 @@ int main() {
         }
     }
 
+    cout << " THE BLUE TEAM PRESENTS!!!!!!!!!!!!!!!!!!!!!!!!!!!!" << endl;
+    cout << " Watch Next For..." << endl << endl;
+
     vector<Edge*> edges = makeEdges(moviesByGenre, allGenres);
     Graph adjList = Graph(edges, totalMovies);
 
@@ -388,7 +391,7 @@ int main() {
 
     while (keepRunning)
     {
-        cout << "Enter Movie Name: ";
+        cout << " Enter Movie Name: ";
         string userTitle;
         getline(cin, userTitle);
 
@@ -396,7 +399,7 @@ int main() {
 
         if (!listMovies.count(userTitle))
         {
-            cout << userTitle << " is not in our dataset" << endl;
+            cout << " " << userTitle << " is not in our dataset" << endl;
             continue;
         }
         else
@@ -404,7 +407,7 @@ int main() {
             userIndex = catalogue[userTitle].getIndex();
         }
 
-        cout << "What Graph Structure Should Be Used? (list/matrix) ";
+        cout << " What Graph Structure Should Be Used? (list/matrix) ";
         string graphType;
         cin >> graphType;
 
@@ -455,10 +458,10 @@ int main() {
         auto end = std::chrono::steady_clock::now();
         auto diff = end - start;
 
-        cout << "The Furthest Movie From " << catalogueVector[userIndex].getTitle() << " is:" << endl;
+        cout << " The Furthest Movie From " << catalogueVector[userIndex].getTitle() << " is:" << endl;
 
-        cout << "Title: " << catalogueVector[indexMax].getTitle() << endl;
-        cout << "Genre: ";
+        cout << " Title: " << catalogueVector[indexMax].getTitle() << endl;
+        cout << " Genre: ";
         for (int i = 0; i < catalogueVector[indexMax].getGenre().size(); i++)
         {
             if (i != catalogueVector[indexMax].getGenre().size() - 1)
@@ -470,11 +473,11 @@ int main() {
                 cout << catalogueVector[indexMax].getGenre()[i] << endl;
             }
         }
-        cout << "Description: " << catalogueVector[indexMax].getDescription() << endl;
+        cout << " Description: " << catalogueVector[indexMax].getDescription() << endl;
         cout << endl;
-        cout << "Time to Run: " << chrono::duration <double, std::milli>(diff).count() << " ms" << endl;
+        cout << " Time to Run: " << chrono::duration <double, std::milli>(diff).count() << " ms" << endl;
 
-        cout << "Run again? (1/0) ";
+        cout << " Run again? (1/0) ";
         char yesNo;
         cin >> yesNo;
         cin.ignore();
