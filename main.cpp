@@ -42,9 +42,9 @@ public:
 };
 
 class Matrix {
+public:
     vector<vector<int>> matrix;
     int numVertices;
-public:
     Matrix(int vertices) 
     {
         numVertices = vertices;
@@ -53,7 +53,7 @@ public:
             vector<int> row;
             for (int j = 0; j < 2000; j++)
             {
-                row.push_back(j);
+                row.push_back(0);
             }
             matrix.push_back(row);
         }
@@ -219,7 +219,6 @@ void makeMatrix(map<string, vector<Movie>>& movies, vector<string>& genres, Matr
                 int weight = calculateWeight(movies[genres[i]][j], movies[genres[i]][k]);
 
                 matrix.insertWeight(movies[genres[i]][j].getIndex(), movies[genres[i]][k].getIndex(), weight);
-
             }
         }
     }
@@ -279,58 +278,45 @@ vector<int> dijkstraList(const Graph& graph, int src) {
     return distance;
 }
 
-vector<int> dijkstraMatrix(Matrix& arr, int src) {
-    int s = src;
-
-    int vertices = arr.getNumVertices();
+vector<int> dijkstraMatrix(const Matrix& arr, int src) {
+    int vertices = arr.numVertices;
     vector<int> distance;
-    for (int i = 0; i < vertices; i++)
+    set<int> included;
+
+    for (int i = 0; i < arr.numVertices; i++)
     {
         distance.push_back(INT_MAX);
     }
-    distance[s] = 0;
-    int previous[vertices];
-    for (int i = 0; i < vertices; i++)
-    {
-        previous[i] = -1;
-    }
 
-    set<int> computed;
-    set<int> processing;
-    for (int i = 0; i < vertices; i++)
-    {
-        processing.insert(i);
-    }
-    computed.insert(s);
-    processing.erase(s);
+    distance[src] = 0;
 
-    while (!processing.empty())
+    for (int i = 0; i < vertices; i++) // had vertices - 1 before
     {
-        for (int i = 0; i < 2000; i++)
+        int min = INT_MAX;
+        int minIndex;
+
+        for (int j = 0; j < vertices; j++)
         {
-
-            if (distance[i] > distance[s] + arr.getWeight(s, i))
+            if (included.count(j) == 0 && distance[j] <= min)
             {
-                distance[i] = distance[s] + arr.getWeight(s,i);
-                previous[i] += 1;
+                min = distance[j];
+                minIndex = j;
             }
         }
-        computed.insert(s);
-        processing.erase(s);
-        // find new s by making sure it is the smallest in distance but not in computed
-
-        int min = INT_MAX;
-        for (int i = 0; i < vertices; i++)
+        included.insert(minIndex);
+        for (int j = 0; j < vertices; j++)
         {
-            if (distance[i] < min && computed.count(i) == 0)
+            if (!included.count(j) && arr.matrix[minIndex][j] && distance[minIndex] != INT_MAX && distance[minIndex] + arr.matrix[minIndex][j] < distance[j])
             {
-                min = distance[i];
-                s = i;
+                distance[j] = distance[minIndex] + arr.matrix[minIndex][j];
             }
         }
     }
 
     return distance;
+
+  
+
 }
 
 
@@ -408,15 +394,19 @@ int main() {
         }
     }
 
-    cout << totalMovies;
+    cout << totalMovies << endl;
 
-    //vector<Edge*> edges = makeEdges(moviesByGenre, allGenres);
+    vector<Edge*> edges = makeEdges(moviesByGenre, allGenres);
 
-    //Graph adjList = Graph(edges, totalMovies);
+    Graph adjList = Graph(edges, totalMovies);
 
-    //vector<int> d = dijkstra(adjList, 898);
+    vector<int> d = dijkstraList(adjList, 898);
 
-    /*
+    cout << "Furthest from: " << catalogueVector[898].getTitle() << endl;
+
+    int imposter = catalogue["Cape Fear"].getIndex();
+    cout << d[imposter] << endl;
+    
     int indexMax = 0;
     int max = 0;
 
@@ -426,14 +416,25 @@ int main() {
             max = d[i];
         }
     }
-    */
+    cout << "AdjList Answer: " << catalogueVector[indexMax].getTitle() <<" Length: " << max << endl;
 
     Matrix test(totalMovies);
     //cout from 0 to 1
     makeMatrix(moviesByGenre, allGenres, test);
+    vector<int> testVec = dijkstraMatrix(test, 898);
+    
+    indexMax = 0;
+    max = 0; 
+    for (int i = 0; i < testVec.size(); i++)
+    {
+        if (testVec[i] > max && testVec[i] != INT_MAX)
+        {
+            indexMax = i;
+            max = testVec[i];
+        }
+    }
+    cout << "Matrix Answer: " << catalogueVector[indexMax].getTitle() << " Length: " << max << endl;
 
-    vector<int> testVec = dijkstraMatrix(test, 0);
-    cout << testVec[1] << endl;
     //cout << catalogueVector[indexMax].getTitle();
 
     cout << "done";
