@@ -25,12 +25,15 @@ class Graph
 {
 public:
     int numVertices; // number of movies
-    map <int, vector<pair<int,int>>> adjList;
+    vector<vector<pair<int,int>>> adjList;
     // e.g. adjList["Toy Story"] = {("Finding Nemo", 40), ("Toy Story 2", 100)}
 
     Graph(const vector<Edge*>& edges, int vertices)
     {
         numVertices = vertices;
+        
+        adjList.resize(vertices);
+
         for (auto &edge : edges)
         {
             adjList[edge->src].push_back(make_pair(edge->dest, edge->weight));
@@ -181,6 +184,7 @@ vector<int> dijkstra(const Graph& graph, int src) {
     {
         for (int i = 0; i < graph.adjList[s].size(); i++)
         {
+
             if (distance[graph.adjList[s][i].first] > distance[s] + graph.adjList[s][i].second)
             {
                 distance[graph.adjList[s][i].first] = distance[s] + graph.adjList[s][i].second;
